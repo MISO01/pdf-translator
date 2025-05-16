@@ -15,7 +15,10 @@ st.title("PDF 문서 번역 플랫폼 (DeepSeek API)")
 # --- NLTK Setup ---
 try:
     nltk.data.find("tokenizers/punkt")
-except LangDetectException:
+except LookupError:
+    import os
+    os.environ['NLTK_DATA'] = os.path.join(os.getcwd(), 'nltk_data')
+    os.makedirs(os.environ['NLTK_DATA'], exist_ok=True)
     nltk.download("punkt", quiet=True)
 
 # --- Constants and Configuration ---
